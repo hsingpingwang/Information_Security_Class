@@ -3,3 +3,4 @@
 -HW1
 指令輸入make即可產生Encrypt/Decrypt
 -HW2
+指令輸入make即可產生EncryptDES/DecryptDES
