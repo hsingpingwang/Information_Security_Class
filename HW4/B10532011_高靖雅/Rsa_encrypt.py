@@ -22,16 +22,17 @@ def square_and_multiply(x, k, p=None):
 
 def main():
     cmd_list = sys.argv[1:]
-    m = int(cmd_list[0])
-    # plaintext = str(cmd_list[0])
+    # m = int(cmd_list[0])
+    plaintext = str(cmd_list[0])
     n = int(cmd_list[1])
     d = int(cmd_list[2])
 
-    # m = bytes_to_long(plaintext.encode('ascii'))
-    assert m < n
-    ciphertext = square_and_multiply(m, d, n)
-    
-    print(ciphertext)
+    m = bytes_to_long(plaintext.encode('ascii'))
+    if m > n: 
+        print("Error: n is too small to encrypt plaintext")
+    else:
+        ciphertext = square_and_multiply(m, d, n)
+        print(ciphertext)
     
 if __name__ == '__main__':
     main()

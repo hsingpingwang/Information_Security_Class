@@ -26,12 +26,14 @@ def main():
     ciphertext = int(cmd_list[0])
     n = int(cmd_list[1])
     e = int(cmd_list[2])
-    
-    assert ciphertext < n
-    m = square_and_multiply(ciphertext, e, n)
-    plaintext = m
-
-    print(plaintext)
+    if ciphertext > n: 
+        print("Error: n is too small to decrypt ciphertext")
+    else:
+        m = square_and_multiply(ciphertext, e, n)
+        temp = str(long_to_bytes(m))
+        l = len(temp)-1
+        plaintext = temp[2:l]
+        print(plaintext)
     
 if __name__ == '__main__':
     main()
