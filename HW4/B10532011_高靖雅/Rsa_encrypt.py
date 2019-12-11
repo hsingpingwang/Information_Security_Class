@@ -12,8 +12,7 @@ def main():
     if len(cmd_list)==2:
         bits = int(cmd_list[0])
         plaintext = str(cmd_list[1])
-        n = Rsa_decrypt.generate(bits)
-        e=65537
+        n, e= Rsa_decrypt.generate(bits)
     else:
         plaintext = str(cmd_list[0])
         n = int(cmd_list[1])
