@@ -1,4 +1,5 @@
 1、	分別測試 generate、encrypt、decrypt:
+
 	Generate指令輸入:
 		python Rsa_generate.py {bits數}
 	 Output:
@@ -26,6 +27,6 @@
 	Output:
 		get publicKey(n,e): XXXXXX XXXXXX
 		get ciphertext: XXXXXXXX
-		
+
 		received ciphertest: XXXXXXX
 		get plaintext: XXXXXXXX
