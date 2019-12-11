@@ -6,9 +6,10 @@ Created on Wed Dec 11 00:33:47 2019
 """
 
 from Crypto.Util.number import long_to_bytes
-import random, math, sys, Rsa_generate
+import math, sys, Rsa_generate
 
 global p,q,n,e,d,phi_n,ciphertext
+e = 65537
 
 def chinese_remainder_theorem(ciphertext,p,q,e):
     if(p<q):
@@ -41,16 +42,14 @@ def generate(bits):
     phi_n = (p - 1) * (q - 1)
 
     while True:
-        e = random.randrange(1, phi_n-1)
-        while p-e<=1 or q-e<=1:
-            e = random.randrange(1, phi_n-1)
+        e = 65537
         if math.gcd(e, phi_n) == 1:
 
             gcd, s, t = Rsa_generate.EEA(phi_n, e)
             if gcd == (s*phi_n + t*e):
                 d = t % phi_n
                 break
-    return n, e
+    return n
 
 def receive(c):
     global ciphertext
