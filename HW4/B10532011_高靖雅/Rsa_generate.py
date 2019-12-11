@@ -3,18 +3,15 @@
 Created on Tue Dec 10 23:19:51 2019
 
 @author: chinya
-
-Generate prime numbers with the Miller-Rabin Primality Test.
 """
 import random, math, sys
 
+"""
+參數: 正整數x 整數指數k optional modulus p
+計算: x^k 或是 x^k mod p (p存在時)
+"""
 def square_and_multiply(x, k, p=None):
-    """
-    Square and Multiply Algorithm
-    Parameters: positive integer x and integer exponent k,
-                optional modulus p
-    Returns: x**k or x**k mod p when p is given
-    """
+    
     b = bin(k).lstrip('0b')
     r = 1
     for i in b:
@@ -26,27 +23,30 @@ def square_and_multiply(x, k, p=None):
     return r
 
 def miller_rabin_primality_test(p, s=5):
-    if p == 2: # 2 is the only prime that is even
+    # 2 是唯一的偶數且質數
+    if p == 2: 
         return True
-    if not (p & 1): # n is a even number and can't be prime
+    # 若n是除了2外的偶數，則非質數
+    if not (p & 1): 
         return False
-
+    
+    # p-1 = 2^u * r
     p1 = p - 1
     u = 0
-    r = p1  # p-1 = 2**u * r
+    r = p1  
 
     while r % 2 == 0:
         r >>= 1
         u += 1
 
-    # at this stage p-1 = 2**u * r  holds
+    # 若此時 p-1 = 2^u * r  holds
     assert p-1 == 2**u * r
 
     def witness(a):
-        """
-        Returns: True, if there is a witness that p is not prime.
-                False, when p might be prime
-        """
+        # True, 表此時有witness證明p不是質數
+        # False, 表此時p可能是質數
+        
+        #用square and multiply 加速計算
         z = square_and_multiply(a, r, p)
         if z == 1:
             return False
@@ -64,14 +64,11 @@ def miller_rabin_primality_test(p, s=5):
 
     return True
 
+"""
+以bitlength n來產生質數，直到產生k個質數後結束
+質數測試的數字從隨機開始，測試是用整數
+"""
 def generate_primes(n=512, k=1):
-    """
-    Generates prime numbers with bitlength n.
-    Stops after the generation of k prime numbers.
-    Caution: The numbers tested for primality start at
-    a random place, but the tests are drawn with the integers
-    following from the random start.
-    """
     assert k > 0
     assert n > 0 and n < 4096
 
@@ -83,6 +80,7 @@ def generate_primes(n=512, k=1):
     primes = []
 
     while k>0:
+        #呼叫miller rabin test 來測試是否為質數
         if miller_rabin_primality_test(x, s=7):
             primes.append(x)
             k = k-1
@@ -90,13 +88,16 @@ def generate_primes(n=512, k=1):
 
     return primes
 
+"""
+擴展歐幾里得演算法Extended Euclidean Algorithm(EEA)
+參數: 正整數a,b 且 a > b
+計算: gcd(a,b) = s*a + t*b
+Return: ( gcd(a,b), s, t )
+
+參考: https://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
+"""
 def EEA(a, b):
-    """
-    Source: https://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
-    Extended Euclidean Algorithm (EEA)
-    Parameters: Positive integers a and b whereby a > b
-    Returns: ( gcd(a,b), s, t )  such that gcd(a,b) = s*a + t*b
-    """
+    
     assert a > b, 'a must be larger than b'
     x0, x1, y0, y1 = 1, 0, 0, 1
     while a != 0:
@@ -105,21 +106,25 @@ def EEA(a, b):
         y0, y1 = y1, y0 - q * y1
     return  b, y0, x0
 
+# 當指令直接呼叫Rsa_generate.py時執行main
 def main():
+    #從指令得指定的bits大小
     cmd_list = sys.argv[1:]
     bits = int(cmd_list[0])
     
+    #以bits大小來給定pq值   
     p = generate_primes(n=bits, k=1)[0]
     q = generate_primes(n=bits, k=1)[0]
     
+    #計算n和phi_n
     n = p * q
-    
     phi_n = (p - 1) * (q - 1)
-
+    
+    #隨機找e且與phi_n-1互值並計算d
     while True:
         e = random.randrange(1, phi_n-1)
         if math.gcd(e, phi_n) == 1:
-
+            #計算d: 利用擴展歐幾里得算法找e的反元素
             gcd, s, t = EEA(phi_n, e)
             if gcd == (s*phi_n + t*e):
                 d = t % phi_n

@@ -10,13 +10,13 @@
 		d= XXXXXX
 
 	Encrypt指令輸入:
-		python Rsa_encrypt.py {plaintext} {n} {d}
+		python Rsa_encrypt.py {plaintext} {n} {e}
 	 Output:
 		get publicKey(n,e): XXXXXX XXXXXX
 		get ciphertext: XXXXXXXX
 
 	Decrypt指令輸入:
-		python Rsa_decrypt.py {ciphertext} {n} {e}
+		python Rsa_decrypt.py {ciphertext} {n} {d}
 	 Output:
 		get privateKey(n,d): XXXXXXX XXXXXX
 		get plaintext:　XXXXXXXXX
