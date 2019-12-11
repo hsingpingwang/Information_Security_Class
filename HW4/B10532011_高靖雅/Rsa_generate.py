@@ -125,11 +125,11 @@ def main():
                 d = t % phi_n
                 break
     
-    print('p= ',p)
-    print('q= ',q)
-    print('n= ',n)
-    print('e= ',e)
-    print('d= ',d)
+    print('\np= ',p)
+    print('\nq= ',q)
+    print('\nn= ',n)
+    print('\ne= ',e)
+    print('\nd= ',d)
  
 if __name__ == '__main__':
     main()
