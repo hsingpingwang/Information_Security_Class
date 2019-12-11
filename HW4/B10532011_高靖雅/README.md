@@ -21,7 +21,7 @@
 		get privateKey(n,d): XXXXXXX XXXXXX
 		get plaintext:　XXXXXXXXX
 
-2、 	測試完整加解密傳送流程:
+2、 	測試完整加解密傳送流程(公鑰e約定為65537):
 	
 	指令輸入:
 		python Rsa_encrypt.py {bits數} {plaintext}
@@ -29,5 +29,5 @@
 		get publicKey(n,e): XXXXXX XXXXXX
 		get ciphertext: XXXXXXXX
 		
-		received ciphertest: XXXXXXX
+		received ciphertext: XXXXXXX
 		get plaintext: XXXXXXXX
