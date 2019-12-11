@@ -22,11 +22,12 @@
 		get plaintext:　XXXXXXXXX
 
 2、 	測試完整加解密傳送流程:
+	
 	指令輸入:
 		python Rsa_encrypt.py {bits數} {plaintext}
 	Output:
 		get publicKey(n,e): XXXXXX XXXXXX
 		get ciphertext: XXXXXXXX
-
+		
 		received ciphertest: XXXXXXX
 		get plaintext: XXXXXXXX
