@@ -1,5 +1,6 @@
 #Key Generation steps
-
+	
+	cmd: Python DSA.py -keygen 
 	Choose a L-bit prime p, such that it satifies the following
 	512 <= L <= 1024
 	64 divides L
@@ -11,7 +12,8 @@
 	Signing key = a
 
 #Signing process 
-
+	
+	cmd: Python DSA.py -sign message.txt
 	The input to this algorithm is a message-file F, verification key and signing key. 
 	The output is the signature on file in signature.txt.
 	Choose a random element r in 1 <= r <= q-1
@@ -22,6 +24,7 @@
 
 #Verification process 
 
+	cmd: Python DSA.py -verify message.txt
 	The input to this algorithm is a message-signature pair (F, (C1, C2)) and the VerKey (p, q, g, h).
 	Compute t1 = int(SHA1(F))C2^-1 mod q. (C2^-1 using extended Euclidean algorithm)
 	Compute t1 = C1C2^-1 mod q.
